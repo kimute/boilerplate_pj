@@ -9,10 +9,14 @@
 # required
 
 - NodeJS(v13.8.0)
+
   - Express
   - Body-parser
   - Cookie-parser
   - Nodemon
+  - JSONWEBTOKEN
+    (token 生成)
+
 - MongoDB
 
   - mongoose
