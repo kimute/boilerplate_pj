@@ -73,10 +73,7 @@ app.post("/api/users/login", (req, res) => {
         //色ろ論難があるかとりあえずcookie
         //cookie parserが必要となる
         //以下のように任意の名前(x_auth)でuser.tokenをcookieに入れよう
-        res
-          .cookie("x_auth", user.token)
-          .status(200)
-          .json({ loginSuccess: true, userId: user._id });
+        res.cookie("x_auth", user.token).status(200).json({ loginSuccess: true, userId: user._id });
       });
     }); //
   });
@@ -86,7 +83,7 @@ app.post("/api/users/login", (req, res) => {
 app.get("/api/users/auth", auth, (req, res) => {
   //req.user._idが書けるのはauth.jsで処理したから
   res.status(200).json({
-    _id: req.user._is,
+    _id: req.user._id,
     isAdmin: req.user.role === 0 ? false : true,
     isAuth: true,
     email: req.user.email,
@@ -96,5 +93,20 @@ app.get("/api/users/auth", auth, (req, res) => {
     image: req.user.image,
   });
 });
+
+//logout function
+//tokenを削除することでlogout 出来る
+
+app.get("/api/users/logout", auth, (req, res) => {
+    // console.log('req.user', req.user)
+    User.findOneAndUpdate({ _id: req.user._id },
+      { token: "" }
+      , (err, user) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+          success: true
+        })
+      })
+  })
 
 app.listen(port, () => console.log(`Express app listening port ${port}`));

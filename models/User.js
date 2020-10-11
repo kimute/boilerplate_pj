@@ -100,13 +100,12 @@ userSchema.statics.findByToken = function (token, cb) {
     //mongoDBの関数findOneを使ってuserを探す
     //クライアントから持ってきたtokenとDBにあるtokenが一致するのか確認する
     user.findOne({
-      _id: decoded,
-      token: token,
+      "_id": decoded,
+      "token": token},
       function(err, user) {
         if (err) return cb(err);
         cb(null, user);
-      },
-    });
+      });
   });
 };
 const User = mongoose.model("User", userSchema);

@@ -11,9 +11,10 @@ let auth = (req, res, next) => {
     if (!user) return res.json({ isAuth: false, error: true });
     //userがあった場合以下のように処理
 
-    req.token=token;
-    req.user=user;
-    next();//←これをする理由:middlewareだから、役割が終わった後に次のfunctionにうつるよう
+    req.token = token;
+    req.user = user;
+    next();
+    //←これをする理由:middlewareだから、役割が終わった後に次のfunctionにうつるよう
   }); //Userのモデルにも同じ物を作成
 };
 
