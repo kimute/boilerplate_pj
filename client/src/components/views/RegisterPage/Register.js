@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../../_action/user_action";
+//history.pushを使うためreact-routrt-domが必要
+import {withRouter} from "react-router-dom";
 
 function Register(props) {
   const dispatch = useDispatch();
@@ -82,4 +84,4 @@ function Register(props) {
   );
 }
 
-export default Register;
+export default withRouter(Register);
